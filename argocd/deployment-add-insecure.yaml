@@ -6,5 +6,5 @@ spec:
   template:
     spec:
       containers:
-      - command: [argocd-server, --insecure]
-        name: argocd-server
+        - command: [argocd-server, --insecure]
+          name: argocd-server
