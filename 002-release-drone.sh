@@ -1,1 +1,0 @@
-helm upgrade --install drone ./drone -f ./drone/values.local.yaml --namespace drone --create-namespace
