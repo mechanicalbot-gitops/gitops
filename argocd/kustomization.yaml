@@ -6,6 +6,7 @@ resources:
   - github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.1.0
   - ingress.yaml
   - repositories.yaml
+  - applications.yaml
 
 patchesStrategicMerge:
   - deployment-add-insecure.yaml
