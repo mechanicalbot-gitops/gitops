@@ -1,0 +1,16 @@
+# https://k3d.io/v5.0.1/usage/configfile/
+apiVersion: k3d.io/v1alpha3
+kind: Simple
+volumes:
+  - volume: /Users/rymarchikbot/src/pet/gitops/nodes-volume:/some/node/path
+    nodeFilters:
+      - server:0
+      - agent:*
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+registries:
+  create:
+    name: docker-registry.localhost
+    hostPort: "12345"
