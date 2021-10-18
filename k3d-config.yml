@@ -2,10 +2,9 @@
 apiVersion: k3d.io/v1alpha3
 kind: Simple
 volumes:
-  - volume: /Users/rymarchikbot/src/pet/gitops/nodes-volume:/some/node/path
+  - volume: /Users/rymarchikbot/src/pet/gitops/server-node-storage:/var/lib/rancher/k3s/storage
     nodeFilters:
       - server:0
-      - agent:*
 ports:
   - port: 80:80
     nodeFilters:
