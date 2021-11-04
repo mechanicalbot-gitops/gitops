@@ -1,0 +1,9 @@
+issuer:
+  name: letsencrypt-staging
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: rymarchik.a@gmail.com
+    privateKeySecretRef: letsencrypt-staging
+
+cert-manager:
+  installCRDs: true

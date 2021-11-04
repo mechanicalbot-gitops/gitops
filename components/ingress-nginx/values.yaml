@@ -1,0 +1,23 @@
+ingress-nginx:
+  # https://www.suse.com/support/kb/doc/?id=000020082
+  fullnameOverride: ingress-nginx
+  controller:
+    hostNetwork: true
+    kind: DaemonSet
+    hostPort:
+      enabled: true
+    service:
+      enabled: false
+    publishService:
+      enabled: false
+    podAnnotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+      # prometheusRule:
+      #   enabled: true
+    config:
+      use-forwarded-headers: "true"

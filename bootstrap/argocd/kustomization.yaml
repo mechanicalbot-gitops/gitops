@@ -1,12 +1,12 @@
+# https://www.frakkingsweet.com/letting-argo-cd-manage-itself/
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: argocd
 resources:
   - namespace.yaml
   - github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.1.0
+  - monitoring.yaml
   - ingress.yaml
-  - repositories.yaml
-  - applications.yaml
 
 patchesStrategicMerge:
   - deployment-add-insecure.yaml

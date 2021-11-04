@@ -1,0 +1,36 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rancher/k3d/main/pkg/config/v1alpha3/schema.json
+
+# https://github.com/rancher/k3d/blob/main/pkg/config/v1alpha3/schema.json
+# https://raw.githubusercontent.com/rancher/k3d/main/pkg/config/v1alpha3/schema.json
+
+# https://rancher.com/docs/k3s/latest/en/installation/install-options/server-config/
+#  --disable value                            (components) Do not deploy packaged components and delete any deployed components (valid items: coredns, servicelb, traefik, local-storage, metrics-server)
+
+# https://k3d.io/v5.0.1/usage/configfile/
+apiVersion: k3d.io/v1alpha3
+kind: Simple
+options:
+  k3s:
+    extraArgs:
+      - arg: --disable=traefik
+        nodeFilters: [server:*]
+volumes:
+  - volume: /Users/rymarchikbot/src/pet/gitops/server-node-storage:/var/lib/rancher/k3s/storage
+    nodeFilters:
+      - server:0
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
+registries:
+  create:
+    # name: docker-registry.localhost
+    hostPort: "12345"
+# traefik prometheus https://github.com/k3s-io/k3s/discussions/3522
+# Best practice prometheus monitoring https://github.com/k3s-io/k3s/issues/425
+# https://github.com/k3s-io/k3s/issues/3619
+
+# https://github.dev/khuedoan/homelab
