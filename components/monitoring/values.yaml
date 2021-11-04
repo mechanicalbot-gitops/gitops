@@ -13,3 +13,9 @@ kube-prometheus-stack:
         kubernetes.io/ingress.class: nginx
       hosts:
         - prometheus.127-0-0-1.nip.io
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+    podMonitorNamespaceSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
