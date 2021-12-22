@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-busybox-1
+spec:
+  selector:
+    matchLabels:
+      app: my-busybox-1
+  template:
+    metadata:
+      labels:
+        app: my-busybox-1
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: test-volume-name-1
+          # hostPath:
+          #   path: /var/lib/rancher/k3s/storage/kek
+          persistentVolumeClaim:
+            claimName: local-path-pvc
+      containers:
+        - name: my-busybox-1-container-1
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          resources: { limits: { memory: "128Mi", cpu: "500m" } }
+          volumeMounts:
+            - mountPath: /test-volume-path
+              subPath: '1'
+              name: test-volume-name-1
+          command:
+            - sleep
+            - "36000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-busybox-2
+spec:
+  selector:
+    matchLabels:
+      app: my-busybox-2
+  template:
+    metadata:
+      labels:
+        app: my-busybox-2
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: test-volume-name-2
+          # hostPath:
+          #   path: /var/lib/rancher/k3s/storage/kek
+          persistentVolumeClaim:
+            claimName: local-path-pvc
+      containers:
+        - name: my-busybox-2-container-1
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          resources: { limits: { memory: "128Mi", cpu: "500m" } }
+          volumeMounts:
+            - mountPath: /test-volume-path
+              subPath: '2'
+              name: test-volume-name-2
+          command:
+            - sleep
+            - "36000"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-path-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 128Mi
+
+# touch /test-volume-path/my-file.txt
+# echo "wow such content" >> /test-volume-path/my-file.txt
+# cat /test-volume-path/my-file.txt
+# exit
