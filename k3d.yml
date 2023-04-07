@@ -15,20 +15,20 @@ kind: Simple
 #       - arg: --disable=traefik
 #         nodeFilters: [server:*]
 volumes:
-  - volume: G:/src/pet/gitops/server-node-storage:/var/lib/rancher/k3s/storage
+  - volume: D:/src/pet/yoba-gitops/server-node-storage:/var/lib/rancher/k3s/storage
     nodeFilters:
       - server:0
 ports:
-  - port: 80:80
+  - port: 1080:80
     nodeFilters:
       - loadbalancer
-  - port: 443:443
+  - port: 1443:443
     nodeFilters:
       - loadbalancer
-registries:
-  create:
-    # name: docker-registry.localhost
-    hostPort: "12345"
+# registries:
+#   create:
+#     # name: docker-registry.localhost
+#     hostPort: "12345"
 # traefik prometheus https://github.com/k3s-io/k3s/discussions/3522
 # Best practice prometheus monitoring https://github.com/k3s-io/k3s/issues/425
 # https://github.com/k3s-io/k3s/issues/3619
